@@ -1,6 +1,7 @@
 import time
 from queue import Queue
 
+from src.data.wav import WavModule
 from src.robot import Robot
 from src.network.ble_server_thread import BLEPacketAssemblerThread
 
@@ -18,6 +19,7 @@ if __name__ == "__main__":
 
     # server_thread = WiFiServerThread(data_queue)
     # server_thread.start()
+    wav = WavModule()
 
     result_queue = Queue()
     ble_thread = BLEPacketAssemblerThread(
@@ -34,7 +36,8 @@ if __name__ == "__main__":
             while not data_queue.empty():
                 data = data_queue.get()
                 if isinstance(data, bytes) or isinstance(data, bytearray):
-                    print(f"[Main] Получен завершённый пакет ({len(data)} байт):", data)
+                    print(f"[Main] Получен завершённый пакет ({len(data)} байт):")
+                    wav.write_wav_file(data)
                 else:
                     print(f"[Main] Ошибка: {data}")
             time.sleep(0.5)

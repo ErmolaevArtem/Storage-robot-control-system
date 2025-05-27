@@ -20,19 +20,30 @@ class BLEPacketAssemblerThread(Thread):
         self._buffer = bytearray()
         self._last_rx_time = None
         self._stop_requested = False
-
+        self.buf = 0
     def run(self):
         asyncio.run(self._main())
 
     async def _main(self):
         def handle_notification(sender, data: bytes):
+            self.buf += len(data)
+            print(self.buf)
             self._buffer.extend(data)
             self._last_rx_time = time.time()
 
         try:
             async with BleakClient(self.address) as client:
                 print(f"[BLE] Подключено к {self.address}")
+
+                # 📏 Получение MTU (на Windows и Linux)
+                try:
+                    mtu = await client.get_mtu()
+                    print(f"[BLE] Negotiated MTU: {mtu}")
+                except Exception as e:
+                    print(f"[BLE] Не удалось получить MTU: {e}")
+
                 await client.start_notify(self.char_uuid, handle_notification)
+
                 print(f"[BLE] Подписка активна")
 
                 self._last_rx_time = time.time()
@@ -42,8 +53,8 @@ class BLEPacketAssemblerThread(Thread):
                     if self._buffer and (now - self._last_rx_time) > self.timeout:
                         # Таймаут прошёл, пакет считается завершённым
                         self.result_queue.put(self._buffer[:])  # Копия
+                        print(f"[BLE] Пакет размером {len(self._buffer)} байт передан в очередь")
                         self._buffer.clear()
-                        print("[BLE] Пакет передан в очередь")
                     await asyncio.sleep(0.1)
 
                 await client.stop_notify(self.char_uuid)
