@@ -2,47 +2,55 @@ import asyncio
 from bleak import BleakClient
 from threading import Thread
 from queue import Queue
+import time
 
-
-class BLENotifyThread(Thread):
-    def __init__(self, address: str, char_uuid: str, result_queue: Queue, timeout: float = 10.0):
+class BLEPacketAssemblerThread(Thread):
+    def __init__(self, address: str, char_uuid: str, result_queue: Queue, timeout: float = 1.0):
+        """
+        :param address: BLE адрес устройства
+        :param char_uuid: UUID характеристики с уведомлениями
+        :param result_queue: очередь для завершённых пакетов
+        :param timeout: таймаут бездействия (в секундах), после которого буфер считается завершённым пакетом
+        """
         super().__init__()
         self.address = address
         self.char_uuid = char_uuid
         self.result_queue = result_queue
         self.timeout = timeout
-        self._stop_event = asyncio.Event()
+        self._buffer = bytearray()
+        self._last_rx_time = None
+        self._stop_requested = False
 
     def run(self):
-        asyncio.run(self._notification_task())
+        asyncio.run(self._main())
 
-    async def _notification_task(self):
-        def handle_notification(sender, data):
-            print(f"[BLE] Notification from {sender}: {data}")
-            self.result_queue.put(data)
+    async def _main(self):
+        def handle_notification(sender, data: bytes):
+            self._buffer.extend(data)
+            self._last_rx_time = time.time()
 
         try:
             async with BleakClient(self.address) as client:
                 print(f"[BLE] Подключено к {self.address}")
-
                 await client.start_notify(self.char_uuid, handle_notification)
-                print(f"[BLE] Подписка на {self.char_uuid} активирована")
+                print(f"[BLE] Подписка активна")
 
-                try:
-                    await asyncio.wait_for(self._stop_event.wait(), timeout=self.timeout)
-                except asyncio.TimeoutError:
-                    print("[BLE] Таймаут подписки")
+                self._last_rx_time = time.time()
+
+                while not self._stop_requested:
+                    now = time.time()
+                    if self._buffer and (now - self._last_rx_time) > self.timeout:
+                        # Таймаут прошёл, пакет считается завершённым
+                        self.result_queue.put(self._buffer[:])  # Копия
+                        self._buffer.clear()
+                        print("[BLE] Пакет передан в очередь")
+                    await asyncio.sleep(0.1)
 
                 await client.stop_notify(self.char_uuid)
-                print("[BLE] Подписка завершена")
+                print("[BLE] Подписка остановлена")
 
         except Exception as e:
             self.result_queue.put(f"[BLE Error] {e}")
 
     def stop(self):
-        # Вызов из внешнего потока для остановки подписки до таймаута
-        loop = asyncio.get_event_loop()
-        if loop.is_running():
-            loop.call_soon_threadsafe(lambda: self._stop_event.set())
-        else:
-            self._stop_event.set()
+        self._stop_requested = True

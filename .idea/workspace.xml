@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9d42033-6bb2-432a-9670-0dcd857efc39" name="Changes" comment="feat: create server_thread.py">
-      <change afterPath="$PROJECT_DIR$/src/gpio_controller.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/network/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/network/ble_server_thread.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/robot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server_thread.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/server_thread.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/network/ble_server_thread.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/ble_server_thread.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +128,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748334816531</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: create server_thread.py">
+      <option name="closed" value="true" />
+      <created>1748350156507</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748350156507</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
