@@ -10,7 +10,6 @@ class WavModule:
         self.filename = '../audio_data/test.wav'
         self.data = []
 
-
     def write_wav_file(self, audio_data):
         with wave.open(self.filename, 'wb') as wav_file:
             wav_file.setnchannels(self.num_channels)  # Моно

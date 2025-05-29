@@ -1,6 +1,6 @@
 import time
 
-from src.gpio_controller import GPIOController
+from gpio_controller import GPIOController
 
 
 class Robot:
@@ -22,13 +22,13 @@ class Robot:
 
     def move_forward(self):
         self.gpio_controller.move_forward()
-        time.sleep(10)
+        time.sleep(5)
         self.gpio_controller.stop()
         time.sleep(0.5)
 
     def move_backward(self):
         self.gpio_controller.move_backward()
-        time.sleep(10)
+        time.sleep(5)
         self.gpio_controller.stop()
         time.sleep(0.5)
 

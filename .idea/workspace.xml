@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9d42033-6bb2-432a-9670-0dcd857efc39" name="Changes" comment="feat: create server_thread.py">
-      <change afterPath="$PROJECT_DIR$/src/data/converter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data/filter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data/recognizer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main_reserv.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/wav.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/wav.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gpio_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/gpio_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/network/server_thread.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/server_thread.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/robot.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/robot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,6 +55,7 @@
   &quot;keyToString&quot;: {
     &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.wi-fi_re.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Storage robot control system/src/main.py&quot;,
@@ -157,7 +157,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748356754639</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="feat: create server_thread.py">
+      <option name="closed" value="true" />
+      <created>1748458314157</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1748458314157</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

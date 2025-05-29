@@ -6,6 +6,7 @@ import socket
 class WiFiServerThread(threading.Thread):
     def __init__(self, queue_data: queue.Queue, ip: str = '0.0.0.0', port: int = 12345):
         super().__init__()
+        self.sock = None
         self.is_work = True
         self.is_connection = False
 

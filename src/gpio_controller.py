@@ -18,8 +18,12 @@ class GPIOController:
         self.grab_pins = None
 
         GPIO.setmode(GPIO.BOARD)
-
+        self.set_up()
         self.stop()
+
+    def set_up(self):
+        for pin in self.driver_pins.keys():
+            GPIO.setup(self.driver_pins.get(pin), GPIO.OUT, initial=GPIO.LOW)
 
     def clean_up(self):
         GPIO.cleanup()
@@ -54,4 +58,4 @@ class GPIOController:
 
     def stop(self):
         for pin in self.driver_pins.keys():
-            GPIO.setup(pin, GPIO.OUT, initial=GPIO.LOW)
+            GPIO.output(self.driver_pins.get(pin), GPIO.LOW)
