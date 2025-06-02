@@ -4,7 +4,16 @@ import RPi.GPIO as GPIO
 
 
 class GPIOController:
-    def __int__(self):
+    def __init__(self):
+        self.driver_pins = None
+        self.grab_pins = None
+
+    def set_up(self):
+        print("Очистка портов")
+        GPIO.cleanup()
+        time.sleep(3)
+        print("Порты очищены")
+
         self.driver_pins = {
             'IN11_PIN': 16,
             'IN12_PIN': 18,
@@ -18,12 +27,11 @@ class GPIOController:
         self.grab_pins = None
 
         GPIO.setmode(GPIO.BOARD)
-        self.set_up()
-        self.stop()
 
-    def set_up(self):
         for pin in self.driver_pins.keys():
             GPIO.setup(self.driver_pins.get(pin), GPIO.OUT, initial=GPIO.LOW)
+
+        self.stop()
 
     def clean_up(self):
         GPIO.cleanup()

@@ -27,7 +27,6 @@ class BLEPacketAssemblerThread(Thread):
     async def _main(self):
         def handle_notification(sender, data: bytes):
             self.buf += len(data)
-            print(self.buf)
             self._buffer.extend(data)
             self._last_rx_time = time.time()
 
